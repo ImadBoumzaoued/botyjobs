@@ -1,0 +1,198 @@
+import ChatBot from "react-simple-chatbot";
+import { ThemeProvider } from "styled-components";
+
+const theme = {
+  background: "#f5f8fb",
+  headerBgColor: "#2196f3",
+  headerFontColor: "#fff",
+  headerFontSize: "15px",
+  botBubbleColor: "#4dabf5",
+  botFontColor: "#fff",
+  userBubbleColor: "#fff",
+  userFontColor: "#4a4a4a",
+};
+state = {
+    loaded: false,
+  };
+  steps = [
+    {
+      id: "1",
+      message: "Hello!",
+      trigger: "start",
+    },
+    {
+      id: "quit",
+      message: "Sad to see you go 😔, wish you the best of luck.",
+      end: true,
+    },
+    {
+      id: "end",
+      end: true,
+      message: `Thank you for your time, 
+        the humans will review your interview and if you pass,
+         you will be contacted shortly after`,
+    },
+  ];
+
+  componentDidMount() {
+    this.job = JSON.parse(localStorage.getItem("job"));
+    this.constructSteps();
+  }
+  // clean this
+  onEnd = ({ values }) => {
+    // eslint-disable-next-line
+    console.log(values);
+  };
+  // clean this
+  constructSteps = () => {
+    const job = this.job;
+    if (!job) return this.setState({ loaded: true });
+    let dynamicSteps = [
+      {
+        id: "start",
+        message: `I'm a 🤖, I will be conducting your interview for '${
+          job.title
+        }' at RiseApp`,
+        trigger: "continue",
+      },
+      {
+        id: "continue",
+        options: [
+          { value: 1, label: "Let's go!", trigger: "info" },
+          { value: 2, label: "Not interested", trigger: "quit" },
+        ],
+      },
+    ];
+    dynamicSteps = [
+      ...dynamicSteps,
+      {
+        id: "info",
+        message: `We're looking for a ${job.title}, with at least ${
+          job.experience
+        } years of experience, to work with us at our ${job.city}, ${
+          job.country
+        } office`,
+        trigger: "description",
+      },
+      {
+        id: "description",
+        message: "Here is a short job description",
+        trigger: "value",
+      },
+      {
+        id: "value",
+        component: <div>{job.description}</div>,
+        trigger: "to_interview",
+      },
+
+      {
+        id: "to_interview",
+        message: `I will now ask you a total of ${3 +
+          job.general_questions.length +
+          job.skill_questions.length} questions`,
+        trigger: "pre_interview",
+      },
+      {
+        id: "pre_interview",
+        message: "Shall we start the interview?",
+        trigger: "ready",
+      },
+      {
+        id: "ready",
+        options: [
+          { value: 1, label: "I'm ready", trigger: "name" },
+          { value: 2, label: "Not interested", trigger: "quit" },
+        ],
+      },
+      {
+        id: "name",
+        message: "What's should we call you (full name)",
+        trigger: "name_input",
+      },
+      {
+        id: "name_input",
+        user: true,
+        validator: value => {
+          if (!value || !value.trim()) return "Please type your name";
+          return true;
+        },
+        trigger: "gq-0",
+      },
+    ];
+    const gqLength = job.general_questions.length;
+    job.general_questions.forEach(
+      (q, index) =>
+        (dynamicSteps = dynamicSteps.concat([
+          {
+            id: `gq-${index}`,
+            message: q,
+            trigger: `gq-${index}-u`,
+          },
+          {
+            id: `gq-${index}-u`,
+            user: true,
+            trigger: index === gqLength - 1 ? `sq-0` : `gq-${index + 1}`,
+          },
+        ])),
+    );
+    const sqLength = job.skill_questions.length;
+    job.skill_questions.forEach(
+      (q, index) =>
+        (dynamicSteps = dynamicSteps.concat([
+          {
+            id: `sq-${index}`,
+            message: q,
+            trigger: `sq-${index}-u`,
+          },
+          {
+            id: `sq-${index}-u`,
+            user: true,
+            trigger: index === sqLength - 1 ? `end` : `sq-${index + 1}`,
+          },
+        ])),
+    );
+    this.steps = this.steps.concat(dynamicSteps);
+    this.setState({ loaded: true });
+  };
+// <div
+      //   style={{
+      //     display: "flex",
+      //     justifyContent: "center",
+      //     alignItems: "center",
+      //     height: "100vh",
+      //   }}
+      // >
+      //   {!this.state.loaded ? (
+      //     "Loading chat bot..."
+      //   ) : !this.job ? (
+      //     "No job found 😒"
+      //   ) : (
+      //     <ThemeProvider theme={theme}>
+      //       <ChatBot
+      //         headerTitle="Interview bot"
+      //         botAvatar="https://images.discordapp.net/avatars/236884221182869504/f956d9d74a7730867e4ba9aba30118f4.png?size=512"
+      //         handleEnd={this.onEnd}
+      //         style={{
+      //           borderRadius: 0,
+      //           boxShadow: "none",
+      //         }}
+      //         avatarStyle={{
+      //           borderRadius: "50%",
+      //         }}
+      //         bubbleStyle={{
+      //           borderRadius: 18,
+      //           fontSize: 13,
+      //           padding: 12,
+      //         }}
+      //         bubbleOptionStyle={{
+      //           borderRadius: 18,
+      //           fontSize: 13,
+      //           padding: 12,
+      //         }}
+      //         steps={this.steps}
+      //         botDelay={100}
+      //         userDelay={100}
+      //       />
+      //     </ThemeProvider>
+      //   )}
+      // </div>
