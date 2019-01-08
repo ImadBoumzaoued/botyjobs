@@ -225,7 +225,7 @@ class Dashboard extends Component {
           </Box>
         </Flex>
         <Flex mx={-15} my={30}>
-          <Box width={1 / 2} px={15}>
+          <Box width={1 / 3} px={15}>
             <Card px={"1.5rem"} py={"1rem"} overflow="hidden">
               <Flex flexDirection="column" width="100%">
                 <h6 {...css(styles.cardName)}>Upcoming Todos</h6>
@@ -234,11 +234,19 @@ class Dashboard extends Component {
               </Flex>
             </Card>
           </Box>
-          <Box width={1 / 2} px={15}>
+          <Box width={1 / 3} px={15}>
             <Card px={"1.5rem"} py={"1rem"} overflow="hidden">
               <Flex flexDirection="column" width="100%">
                 <h6 {...css(styles.cardName)}>Upcoming events</h6>
                 <h3 {...css(styles.cardHeading)}>Calendar items</h3>
+              </Flex>
+            </Card>
+          </Box>
+          <Box width={1 / 3} px={15}>
+            <Card px={"1.5rem"} py={"1rem"} overflow="hidden">
+              <Flex flexDirection="column" width="100%">
+                <h6 {...css(styles.cardName)}>Other</h6>
+                <h3 {...css(styles.cardHeading)}>Team members</h3>
               </Flex>
             </Card>
           </Box>
