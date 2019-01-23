@@ -1,10 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "common/components/Card";
 
-class Settings extends Component {
-  render() {
-    return <Card>Settings coming soon</Card>;
-  }
+function Settings() {
+  return <Card>Settings coming soon</Card>;
 }
 
 Settings.tabProps = {

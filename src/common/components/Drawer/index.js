@@ -5,3 +5,5 @@ class Drawer extends PureComponent {
     return <div>drawer</div>;
   }
 }
+
+export default Drawer;

@@ -9,7 +9,7 @@ import Input from "common/components/form/Input";
 import Select from "common/components/form/RSelect";
 import Textarea from "common/components/form/Textarea";
 import Button from "common/components/Button";
-import Switch from "common/components/Switch/Switch";
+import Switch from "common/components/Switch";
 import FormSection from "common/components/form/FormSection";
 import Title from "app/components/Title";
 import QuestionsInput from "common/components/form/QuestionsInput";
