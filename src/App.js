@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family:  'Poppins', sans-serif;
+    font-family:  'Muli', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 `;
