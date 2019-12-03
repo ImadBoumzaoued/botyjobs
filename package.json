@@ -11,6 +11,7 @@
     "color": "^3.1.2",
     "draft-js": "^0.11.3",
     "formik": "^2.0.6",
+    "pretty-quick": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "16.12.0",
     "react-cache": "^2.0.0-alpha.1",
@@ -46,12 +47,13 @@
     "prettier": "prettier \"**/*.+(js|jsx|ts|tsx)\"",
     "lint": "eslint src",
     "format": "npm run prettier -- --write",
-    "validate": "npm run lint && npm run prettier -- --list-different",
+    "validate": "npm run lint && npm run prettier -- --list-different && npm run test",
     "eject": "react-scripts eject",
-    "setup": "npm install && npm run validate",
-    "precommit": "lint-staged"
+    "setup": "npm install && npm run validate"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
@@ -59,7 +61,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1"
   },
   "browserslist": [
@@ -67,5 +68,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
 }
