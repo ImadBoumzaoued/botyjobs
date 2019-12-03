@@ -251,7 +251,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default compose(
-  connect(mapStateToProps),
-  styled,
-)(CreateJob);
+export default compose(connect(mapStateToProps), styled)(CreateJob);

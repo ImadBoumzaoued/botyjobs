@@ -155,9 +155,7 @@ class Toast extends PureComponent {
                 isRemoveable={this.props.closable}
                 onRemove={() => this.close()}
                 style={{
-                  boxShadow: `0 0 1px ${
-                    theme.color.scales.N5A
-                  }, 0 8px 10px -4px ${theme.color.scales.N6A}`,
+                  boxShadow: `0 0 1px ${theme.color.scales.N5A}, 0 8px 10px -4px ${theme.color.scales.N6A}`,
                 }}
               >
                 {this.props.children}
