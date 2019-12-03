@@ -1,4 +1,4 @@
-import React, { useReducer} from "react";
+import React, { useReducer } from "react";
 import styled, { css } from "styled-components";
 import Checkbox from "../../common/components/form/Checkbox";
 import { getColor } from "../../common/utils/themeHelpers";
@@ -44,14 +44,13 @@ const todosReducer = (state, action) => {
   }
 };
 
-
 const TodosDashboardWidget = () => {
   const [state, dispatch] = useReducer(todosReducer, initialState);
   return (
     <List>
       {state.list.map((item, index) => (
         <ListItem key={`${item.title}-${index}`} done={item.completed}>
-          <Status  color={item.completed ? "green" : "primary"} />
+          <Status color={item.completed ? "green" : "primary"} />
           <Checkbox
             onChange={() => dispatch({ type: TOGGLE_COMPLETED, index })}
             label={item.title}
